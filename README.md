@@ -14,7 +14,7 @@
 |----|--------|
 | 💻 **Projeto** | Jujutsu Kaisen Landing Page |
 | 🛠 **Tecnologias** | HTML, CSS, JavaScript |
-| 🔗 **Demo** | https://seusite.netlify.app |
+| 🔗 **Demo** | [https://seusite.netlify.app](https://6973addd1abde73bf4907834--effortless-travesseiro-8838aa.netlify.app/) |
 | 📚 **Referência / Desafio** | [https://link-do-desafio-ou-curso](https://frontweek-hollowknight.netlify.app/) |
 
 
