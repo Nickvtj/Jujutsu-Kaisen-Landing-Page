@@ -1,0 +1,164 @@
+/* ===== HISTÓRIA PAGE ===== */
+.historia-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    position: relative;
+    padding: 5rem 2rem;
+    gap: 3rem;
+}
+
+.historia-content {
+    flex: 0 0 25%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 350px;
+    margin-bottom: 110px;
+}
+
+.historia-logo {
+    width: 90%;
+    height: auto;
+    max-height: 150px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.2));
+    transition: all 0.4s ease;
+}
+
+.historia-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #D5CC80;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.historia-text-container {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.historia-text {
+    font-size: 20px;
+    line-height: 1.8;
+    color: #fff;
+    font-weight: 300;
+}
+
+.historia-image-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.historia-image-center img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    max-height: 600px;
+    filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.2));
+    border-radius: 8px;
+    transition: all 0.4s ease;
+}
+
+.historia-image-center img:hover {
+    filter: drop-shadow(0 0 50px rgba(21, 145, 198, 0.8)) drop-shadow(0 0 30px rgba(21, 145, 198, 0.6)) drop-shadow(0 0 20px rgba(21, 145, 198, 0.4));
+}
+
+.historia-wheel {
+    flex: 0 0 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.wheel-container {
+    position: relative;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 9rem;
+}
+
+.wheel-item {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    cursor: pointer;
+    border: 3px solid transparent;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wheel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Ajustar tamanho individual de cada imagem */
+.wheel-item-1 img {
+    object-fit: contain;
+    width: 100%;
+    width: 100%;
+}
+
+.wheel-item-2 img {
+    object-fit: contain;
+    width: 100%;
+    width: 100%;
+}
+
+.wheel-item-3 img {
+    object-fit: contain;
+    width: 100%;
+    width: 100%;
+}
+
+.wheel-item-4 img {
+    object-fit: contain;
+    width: 100%;
+    width: 100%;
+}
+
+.wheel-item:hover {
+    border-color: #D5CC80;
+    transform: scale(1.05);
+}
+
+.wheel-item.active {
+    border-color: #D5CC80;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    transform: scale(1.3);
+    height: 130px;
+}
+
+/* Remove posicionamentos antigos da roda */
+.wheel-item-1 {
+    transform: none;
+}
+
+.wheel-item-2 {
+    transform: none;
+}
+
+.wheel-item-3 {
+    transform: none;
+}
+
+.wheel-item-4 {
+    transform: none;
+}

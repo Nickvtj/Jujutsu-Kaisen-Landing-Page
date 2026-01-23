@@ -1,23 +1,8 @@
-// Script para o loader - apenas na primeira vez que entra
+// Script para a página de personagens
+// Será preenchido conforme necessário
+
 document.addEventListener('DOMContentLoaded', () => {
-    const loader = document.querySelector('.Loader');
-    
-    // Verifica se já visitou o site nesta sessão
-    if (sessionStorage.getItem('siteVisitado')) {
-        // Se já visitou, esconde o loader imediatamente
-        loader.style.display = 'none';
-    } else {
-        // Se é primeira vez, marca como visitado e mostra o loader por 3 segundos
-        sessionStorage.setItem('siteVisitado', 'true');
-        
-        setTimeout(() => {
-            loader.style.opacity = '0';
-            loader.style.transition = 'opacity 0.5s ease-out';
-            setTimeout(() => {
-                loader.style.display = 'none';
-            }, 500);
-        }, 3000);
-    }
+    console.log('Página de Personagens carregada');
     
     // Script para partículas com delays aleatórios
     const particles = document.querySelectorAll('.particle');

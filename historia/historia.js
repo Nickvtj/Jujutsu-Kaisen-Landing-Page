@@ -1,0 +1,89 @@
+// Dados dos arcos da história
+const historiaData = [
+    {
+        titulo: "Arco 1: Escola de Jujutsu",
+        logo: "../assets/images/Jujutsu-Kaisen-0-Logo.png",
+        descricao: "A história foca em Yuta Okkotsu, um jovem assombrado pelo espírito poderosíssimo de sua amiga de infância, Rika. Ele entra para a escola Jujutsu, aprende a controlar esse poder e derrota o vilão Suguru Geto, que queria extinguir os humanos comuns. No fim, Yuta liberta a alma de Rika e se torna um dos feiticeiros mais fortes da atualidade.",
+        imagem: "../assets/images/Yuta-Historia.png"
+    },
+    {
+        titulo: "Arco 2: Incidente de Tóquio",
+        logo: "../assets/images/Jujutsu-Kaisen-Logo.png",
+        descricao: "O jovem Yuji Itadori engole um dedo de Sukuna, o Rei das Maldições, e vira seu receptáculo. Para evitar sua execução imediata, ele se junta a Megumi e Nobara sob a tutela de Gojo para encontrar os outros dedos. A temporada mostra o trio amadurecendo em missões perigosas enquanto maldições de nível especial começam a se organizar para um ataque em massa.",
+        imagem: "../assets/images/Itadori-Hitoria.png"
+    },
+    {
+        titulo: "Arco 3: Viagem de Treino",
+        logo: "../assets/images/Jujutsu-Kaisen-Shibuya-Logo.png",
+        descricao: "Após mostrar o passado de Gojo e Geto, a história volta para o presente no massacre de Shibuya. O plano dos vilões dá certo: Satoru Gojo é selado, deixando a humanidade indefesa. O arco é um caos total, com Sukuna assumindo o corpo de Yuji para destruir a cidade e vários personagens importantes morrendo ou sendo derrotados. O Japão entra em colapso e Yuji termina isolado e caçado.",
+        imagem: "../assets/images/Gojo-Historia.png"
+    },
+    {
+        titulo: "Arco 4: Incidente de Shibuya",
+        logo: "../assets/images/Jujutsu-Kaisen-Abate-Logo.png",
+        descricao: "Após o selamento de Gojo, o Japão se torna o palco de um \"battle royale\" mortal arquitetado por Kenjaku. Feiticeiros novos e antigos são forçados a lutar em colônias isoladas para acumular pontos. O objetivo de Yuji e seus aliados é entrar no jogo para resgatar Gojo, proteger os civis e impedir a fusão que ameaça a existência da humanidade.",
+        imagem: "../assets/images/Megumi-Historia.png"
+    }
+];
+
+// Função para atualizar a história ao clicar
+function atualizarHistoria(index) {
+    const data = historiaData[index];
+    
+    // Atualizar logo acima da descrição
+    document.getElementById('historiaLogo').src = data.logo;
+    
+    // Atualizar texto
+    document.getElementById('historiaText').textContent = data.descricao;
+    
+    // Atualizar imagem do meio
+    document.getElementById('historiImageMain').src = data.imagem;
+    
+    // Atualizar ativo na roda
+    document.querySelectorAll('.wheel-item').forEach((item, i) => {
+        item.classList.remove('active');
+        if (i === index) {
+            item.classList.add('active');
+        }
+    });
+}
+
+// Event listeners para os itens da roda
+document.addEventListener('DOMContentLoaded', () => {
+    const wheelItems = document.querySelectorAll('.wheel-item');
+    
+    wheelItems.forEach((item) => {
+        item.addEventListener('click', () => {
+            const index = parseInt(item.getAttribute('data-index'));
+            atualizarHistoria(index);
+        });
+    });
+    
+    // Carregar primeiro arco por padrão
+    atualizarHistoria(0);
+});
+
+// Script para manter o vídeo de background contínuo
+window.addEventListener('beforeunload', () => {
+    const video = document.querySelector('.video-background');
+    if (video) {
+        sessionStorage.setItem('videoTime', video.currentTime);
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const video = document.querySelector('.video-background');
+    if (video) {
+        const savedTime = sessionStorage.getItem('videoTime');
+        if (savedTime) {
+            video.currentTime = parseFloat(savedTime);
+        }
+    }
+    
+    // Script para partículas com delays aleatórios
+    const particles = document.querySelectorAll('.particle');
+    particles.forEach((particle) => {
+        const randomDelay = Math.random() * 10;
+        particle.style.animationDelay = randomDelay + 's';
+    });
+});
