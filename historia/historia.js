@@ -1,4 +1,3 @@
-// Dados dos arcos da história
 const historiaData = [
     {
         titulo: "Arco 1: Escola de Jujutsu",
@@ -26,64 +25,61 @@ const historiaData = [
     }
 ];
 
-// Função para atualizar a história ao clicar
-function atualizarHistoria(index) {
-    const data = historiaData[index];
-    
-    // Atualizar logo acima da descrição
-    document.getElementById('historiaLogo').src = data.logo;
-    
-    // Atualizar texto
-    document.getElementById('historiaText').textContent = data.descricao;
-    
-    // Atualizar imagem do meio
-    document.getElementById('historiImageMain').src = data.imagem;
-    
-    // Atualizar ativo na roda
-    document.querySelectorAll('.wheel-item').forEach((item, i) => {
-        item.classList.remove('active');
-        if (i === index) {
-            item.classList.add('active');
-        }
+const TRANSITION_MS = 300;
+const HISTORIA_ELEMENT_IDS = ['historiaLogo', 'historiaTitle', 'historiaText', 'historiaImageMain'];
+
+let transitionTimeoutId = null;
+
+function getHistoriaElements() {
+    return HISTORIA_ELEMENT_IDS.map((id) => document.getElementById(id));
+}
+
+function aplicarFade(elementos, isOut) {
+    elementos.forEach((el) => {
+        if (!el) return;
+        el.classList.add('historia-fade');
+        el.classList.toggle('out', isOut);
     });
 }
 
-// Event listeners para os itens da roda
-document.addEventListener('DOMContentLoaded', () => {
-    const wheelItems = document.querySelectorAll('.wheel-item');
-    
-    wheelItems.forEach((item) => {
+function setWheelActive(index) {
+    document.querySelectorAll('.wheel-item').forEach((item, i) => {
+        item.classList.toggle('active', i === index);
+    });
+}
+
+function atualizarHistoria(index) {
+    const data = historiaData[index];
+    const [logo, titulo, texto, imagem] = getHistoriaElements();
+    const elementos = [logo, titulo, texto, imagem];
+
+    if (transitionTimeoutId) {
+        clearTimeout(transitionTimeoutId);
+    }
+
+    aplicarFade(elementos, true);
+
+    transitionTimeoutId = setTimeout(() => {
+        if (!logo || !titulo || !texto || !imagem) return;
+
+        logo.src = data.logo;
+        titulo.textContent = data.titulo;
+        texto.textContent = data.descricao;
+        imagem.src = data.imagem;
+        aplicarFade(elementos, false);
+    }, TRANSITION_MS);
+
+    setWheelActive(index);
+}
+
+function initHistoriaWheel() {
+    document.querySelectorAll('.wheel-item').forEach((item) => {
         item.addEventListener('click', () => {
-            const index = parseInt(item.getAttribute('data-index'));
-            atualizarHistoria(index);
+            atualizarHistoria(parseInt(item.dataset.index, 10));
         });
     });
-    
-    // Carregar primeiro arco por padrão
+
     atualizarHistoria(0);
-});
+}
 
-// Script para manter o vídeo de background contínuo
-window.addEventListener('beforeunload', () => {
-    const video = document.querySelector('.video-background');
-    if (video) {
-        sessionStorage.setItem('videoTime', video.currentTime);
-    }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const video = document.querySelector('.video-background');
-    if (video) {
-        const savedTime = sessionStorage.getItem('videoTime');
-        if (savedTime) {
-            video.currentTime = parseFloat(savedTime);
-        }
-    }
-    
-    // Script para partículas com delays aleatórios
-    const particles = document.querySelectorAll('.particle');
-    particles.forEach((particle) => {
-        const randomDelay = Math.random() * 10;
-        particle.style.animationDelay = randomDelay + 's';
-    });
-});
+document.addEventListener('DOMContentLoaded', initHistoriaWheel);
