@@ -81,8 +81,58 @@ body {
     overflow-y: auto;
     min-height: 100vh;
     min-height: 100dvh;
-    cursor: url('assets/images/Cursor.png'), pointer;
     position: relative;
+}
+
+/* Cursor customizado (dedo Sukuna) — segue o mouse via JS */
+html.custom-cursor-active,
+html.custom-cursor-active * {
+    cursor: none !important;
+}
+
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 44px;
+    height: 44px;
+    pointer-events: none;
+    z-index: 100000;
+    opacity: 0;
+    transition: opacity 0.12s ease;
+    will-change: transform;
+}
+
+.custom-cursor.is-visible {
+    opacity: 1;
+}
+
+.custom-cursor img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+@media (hover: none) and (pointer: coarse) {
+    html.custom-cursor-active,
+    html.custom-cursor-active * {
+        cursor: auto !important;
+    }
+
+    .custom-cursor {
+        display: none;
+    }
+}
+
+body.nav-open {
+    overflow: hidden;
+}
+
+body.nav-open {
+    overflow: hidden;
 }
 
 /* Home — bloqueia scroll só no main, não no body (evita reset de zoom ao navegar) */
@@ -192,7 +242,8 @@ header {
 }
 
 .navbar {
-    padding: clamp(0.65rem, 2vw, var(--space-sm)) var(--section-padding-x);
+    padding: clamp(0.65rem, 2vw, var(--space-sm)) max(var(--section-padding-x), env(safe-area-inset-right, 0px)) clamp(0.65rem, 2vw, var(--space-sm)) max(var(--section-padding-x), env(safe-area-inset-left, 0px));
+    padding-top: max(clamp(0.65rem, 2vw, var(--space-sm)), env(safe-area-inset-top, 0px));
     background: rgba(8, 8, 13, 0.28);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -201,12 +252,13 @@ header {
 .navbar-menu {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: flex-start;
     max-width: var(--content-max-width);
     margin: 0 auto;
     gap: clamp(0.75rem, 2.5vw, 2rem);
+    width: 100%;
 }
 
 .logo-img {
@@ -278,6 +330,55 @@ header {
     outline: 2px solid var(--color-gold);
     outline-offset: 4px;
     border-radius: 2px;
+}
+
+/* Mobile menu toggle */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-left: auto;
+    padding: 0.5rem;
+    border: 1px solid rgba(201, 169, 97, 0.35);
+    border-radius: var(--radius-sm);
+    background: rgba(8, 8, 13, 0.6);
+    flex-shrink: 0;
+    transition: border-color var(--transition-base), background var(--transition-base);
+}
+
+.nav-toggle:hover {
+    border-color: var(--color-gold);
+    background: rgba(201, 169, 97, 0.1);
+}
+
+.nav-toggle:focus-visible {
+    outline: 2px solid var(--color-cyan);
+    outline-offset: 3px;
+}
+
+.nav-toggle-bar {
+    display: block;
+    width: 1.25rem;
+    height: 2px;
+    background: var(--color-gold-light);
+    border-radius: 1px;
+    transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
 }
 
 /* ===== MAIN ===== */
@@ -374,6 +475,12 @@ main:has(.personagens-section) {
     margin: 0;
 }
 
+.hero-author {
+    color: var(--color-gold-light);
+    font-weight: 600;
+    text-shadow: 0 0 12px var(--color-gold-glow);
+}
+
 .btn-watch {
     align-self: flex-start;
     display: inline-flex;
@@ -389,7 +496,7 @@ main:has(.personagens-section) {
     font-size: 0.8125rem;
     font-weight: 600;
     text-transform: uppercase;
-    cursor: pointer;
+    text-decoration: none;
     transition: all var(--transition-base);
     letter-spacing: 0.14em;
 }
@@ -541,102 +648,160 @@ main:has(.personagens-section) {
 
     .hero-section {
         gap: var(--space-md);
-        grid-template-columns: 1.1fr 0.9fr;
+        grid-template-columns: 1fr 1fr;
+        padding-inline: var(--section-padding-x);
     }
 
     .hero-character img {
-        max-width: min(100%, 22rem);
+        max-width: min(100%, 20rem);
     }
 }
 
 @media (max-width: 768px) {
     :root {
-        --navbar-height: 4.25rem;
-        --section-padding-x: clamp(1rem, 3vw, 1.5rem);
+        --navbar-height: 4.5rem;
+        --section-padding-x: 1.25rem;
     }
 
-    .navbar-menu {
-        gap: var(--space-sm);
+    .nav-toggle {
+        display: flex;
     }
 
     .nav-list {
-        gap: clamp(0.5rem, 2vw, 1rem);
+        position: fixed;
+        top: var(--navbar-height);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 0.5rem max(var(--section-padding-x), env(safe-area-inset-right, 0px)) max(1rem, env(safe-area-inset-bottom, 0px)) max(var(--section-padding-x), env(safe-area-inset-left, 0px));
+        background: rgba(8, 8, 13, 0.96);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(201, 169, 97, 0.15);
+        transform: translateY(-110%);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform var(--transition-base), opacity var(--transition-base), visibility var(--transition-base);
+        z-index: 99;
+        max-height: calc(100dvh - var(--navbar-height));
+        overflow-y: auto;
+    }
+
+    .nav-list.is-open {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-list li {
+        width: 100%;
+    }
+
+    .nav-link {
+        width: 100%;
+        padding: 0.875rem 0.5rem;
+        min-height: 3rem;
+        letter-spacing: 0.1em;
+    }
+
+    .nav-link::after {
+        display: none;
+    }
+
+    body:has(.hero-section) main {
+        height: auto;
+        min-height: calc(100dvh - var(--navbar-height));
+        overflow: visible;
     }
 
     .hero-section {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
         align-items: start;
-        padding-top: var(--space-md);
-        overflow: hidden;
+        padding: var(--space-md) var(--section-padding-x) var(--space-lg);
+        height: auto;
+        min-height: calc(100dvh - var(--navbar-height) - 1rem);
+        overflow: visible;
     }
 
     .hero-content {
         max-width: 100%;
+        order: 1;
     }
 
     .hero-character {
-        align-self: end;
-        justify-self: end;
+        order: 2;
+        align-self: center;
+        justify-self: center;
         width: 100%;
         height: auto;
-        margin-top: calc(-1 * var(--space-sm));
+        margin-top: var(--space-sm);
     }
 
     .hero-character img {
-        max-width: min(100%, 16rem);
-        max-height: clamp(12rem, 38vh, 18rem);
-        object-position: bottom right;
+        max-width: min(100%, 14rem);
+        max-height: clamp(11rem, 36vh, 16rem);
+        object-position: center bottom;
+        margin-inline: auto;
     }
 
     .Logo-jujutsu {
-        max-width: min(100%, 16rem);
+        max-width: min(100%, 15rem);
+    }
+
+    .hero-card {
+        padding: 1.15rem 1.15rem 1.15rem 1.25rem;
     }
 
     .hero-description {
-        font-size: clamp(0.875rem, 2.8vw, 1rem);
+        font-size: 0.9375rem;
     }
 
     .btn-watch {
         width: 100%;
-        max-width: 18rem;
+        max-width: none;
         justify-content: center;
     }
 }
 
 @media (max-width: 480px) {
     :root {
-        --navbar-height: 4rem;
+        --navbar-height: 4.25rem;
+        --section-padding-x: 1rem;
     }
 
     .navbar {
         padding-block: 0.5rem;
     }
 
-    .nav-link {
-        min-height: 2.5rem;
-        padding-inline: 0.125rem;
-        letter-spacing: 0.08em;
+    .logo-img {
+        height: 2rem;
     }
 
     .hero-section {
+        padding-bottom: var(--space-md);
         gap: var(--space-sm);
     }
 
-    .hero-character {
-        max-width: min(100%, 14rem);
-        max-height: clamp(10rem, 32vh, 14rem);
-    }
-
     .hero-character img {
-        max-height: clamp(10rem, 32vh, 14rem);
+        max-width: min(100%, 12rem);
+        max-height: clamp(10rem, 32vh, 13rem);
     }
 
+    .Logo-jujutsu {
+        max-width: 100%;
+    }
+
+    .hero-card::after {
+        display: none;
+    }
 }
 
 @media (max-width: 360px) {
-    .nav-list {
-        width: 100%;
-        justify-content: flex-start;
+    .nav-link {
+        font-size: 0.7rem;
+        letter-spacing: 0.06em;
     }
 }

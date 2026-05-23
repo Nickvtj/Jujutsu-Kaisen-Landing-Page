@@ -6,11 +6,11 @@
     align-items: center;
     min-height: calc(100dvh - var(--navbar-height));
     padding: clamp(1rem, 2.5vw, var(--space-lg)) var(--section-padding-x);
+    padding-bottom: max(var(--space-xl), env(safe-area-inset-bottom, 0px));
     gap: clamp(1rem, 2.5vw, var(--space-lg));
     max-width: var(--content-max-width);
     margin: 0 auto;
     overflow-x: hidden;
-    padding-bottom: var(--space-xl);
 }
 
 .personagens-header {
@@ -42,32 +42,23 @@
 
 .personagens-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(0.75rem, 2vw, var(--space-md));
     width: 100%;
 }
 
 .personagem-card {
     position: relative;
+    display: flex;
+    flex-direction: column;
     background: var(--color-bg-elevated);
     border: var(--border-subtle);
     border-radius: var(--radius-lg);
     overflow: hidden;
-    transition: all var(--transition-base);
-    cursor: pointer;
+    transition: border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
     min-height: 100%;
-}
-
-.personagem-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, transparent 50%, rgba(8, 8, 13, 0.95) 100%);
-    z-index: 1;
-    pointer-events: none;
-    transition: opacity var(--transition-base);
 }
 
 .personagem-card:hover {
@@ -83,28 +74,30 @@
 
 .personagem-card-image {
     width: 100%;
-    height: clamp(12rem, 28vw, 16rem);
+    height: clamp(10rem, 22vw, 13rem);
     object-fit: contain;
     object-position: center bottom;
     display: block;
-    transition: transform var(--transition-slow);
-    background: rgba(0, 0, 0, 0.25);
+    opacity: 0.42;
+    transition: opacity var(--transition-base), transform var(--transition-slow);
+    padding: 0.5rem;
 }
 
-.personagem-card:hover .personagem-card-image {
-    transform: scale(1.03);
+.personagem-card:hover .personagem-card-image,
+.personagem-card:focus-within .personagem-card-image {
+    opacity: 1;
+    transform: scale(1.02);
 }
 
 .personagem-card-body {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: relative;
     z-index: 2;
-    padding: clamp(0.75rem, 2vw, var(--space-md));
+    padding: clamp(0.85rem, 2vw, var(--space-md));
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
+    flex: 1;
+    background: rgba(8, 8, 13, 0.92);
 }
 
 .personagem-card-role {
@@ -150,7 +143,258 @@
     opacity: 1;
 }
 
-/* Responsive */
+/* ===== MODAL ===== */
+body.modal-open {
+    overflow: hidden;
+}
+
+.personagem-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--section-padding-x);
+}
+
+.personagem-modal[hidden] {
+    display: none;
+}
+
+.personagem-modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10001;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid rgba(201, 169, 97, 0.45);
+    border-radius: 50%;
+    background: rgba(8, 8, 13, 0.85);
+    color: var(--color-gold-light);
+    font-size: 1.75rem;
+    line-height: 1;
+    transition: all var(--transition-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0.15rem;
+}
+
+.personagem-modal-nav--prev {
+    left: clamp(0.5rem, 2vw, 1.25rem);
+}
+
+.personagem-modal-nav--next {
+    right: clamp(0.5rem, 2vw, 1.25rem);
+}
+
+.personagem-modal-nav:hover {
+    background: rgba(201, 169, 97, 0.15);
+    border-color: var(--color-gold);
+    box-shadow: var(--shadow-gold);
+}
+
+.personagem-modal-nav:focus-visible {
+    outline: 2px solid var(--color-cyan);
+    outline-offset: 3px;
+}
+
+.personagem-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.82);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.personagem-modal-dialog {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 52rem);
+    max-height: min(90dvh, 40rem);
+    background: linear-gradient(165deg, rgba(22, 18, 26, 0.98) 0%, rgba(10, 8, 14, 0.99) 100%);
+    border: 1px solid rgba(201, 169, 97, 0.35);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), var(--shadow-gold);
+    overflow: hidden;
+    animation: modalIn 0.3s ease-out;
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.personagem-modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 3;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid rgba(201, 169, 97, 0.4);
+    border-radius: var(--radius-sm);
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--color-gold-light);
+    font-size: 1.5rem;
+    line-height: 1;
+    transition: all var(--transition-base);
+}
+
+.personagem-modal-close:hover {
+    background: rgba(201, 169, 97, 0.15);
+    border-color: var(--color-gold);
+}
+
+.personagem-modal-close:focus-visible {
+    outline: 2px solid var(--color-cyan);
+    outline-offset: 2px;
+}
+
+.personagem-modal-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    min-height: 0;
+    max-height: min(90dvh, 40rem);
+}
+
+.personagem-modal-image-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(ellipse at center, rgba(196, 30, 58, 0.2) 0%, rgba(8, 8, 13, 0.9) 70%);
+    padding: 1.5rem;
+    min-height: 16rem;
+}
+
+.personagem-modal-image {
+    max-width: 100%;
+    max-height: min(50dvh, 22rem);
+    object-fit: contain;
+    filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.5));
+}
+
+.personagem-modal-body {
+    padding: clamp(1.25rem, 3vw, 2rem);
+    padding-top: clamp(2rem, 4vw, 2.5rem);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.personagem-modal-role {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-cyan);
+}
+
+.personagem-modal-name {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--color-gold-light);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+}
+
+.personagem-modal-historia {
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+@media (max-width: 768px) {
+    .personagem-modal {
+        padding: 0.75rem;
+        align-items: flex-end;
+    }
+
+    .personagem-modal-dialog {
+        width: 100%;
+        max-height: 92dvh;
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+
+    .personagem-modal-nav {
+        top: auto;
+        bottom: 1.25rem;
+        transform: none;
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.35rem;
+    }
+
+    .personagem-modal-nav--prev {
+        left: 1rem;
+    }
+
+    .personagem-modal-nav--next {
+        right: 1rem;
+    }
+
+    .personagem-modal-layout {
+        grid-template-columns: 1fr;
+        max-height: 92dvh;
+    }
+
+    .personagem-modal-image-wrap {
+        min-height: 10rem;
+        padding: 1rem;
+    }
+
+    .personagem-modal-image {
+        max-height: 12rem;
+    }
+
+    .personagem-modal-body {
+        max-height: none;
+        padding: 1.25rem 1rem 4.5rem;
+    }
+
+    .personagens-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .personagens-section {
+        padding-inline: 1rem;
+    }
+
+    .personagem-card-image {
+        height: clamp(11rem, 40vw, 14rem);
+    }
+
+    .personagem-card:hover {
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .personagem-modal-dialog {
+        animation: none;
+    }
+
+    .personagem-card:hover {
+        transform: none;
+    }
+}
+
+/* Responsive — desktop grids */
 @media (min-width: 1024px) {
     .personagens-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -163,24 +407,8 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (min-width: 481px) and (max-width: 767px) {
     .personagens-grid {
-        grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
-    }
-}
-
-@media (max-width: 480px) {
-    .personagens-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .personagem-card-image {
-        height: clamp(14rem, 45vw, 18rem);
-    }
-}
-
-@media (max-width: 360px) {
-    .personagens-section {
-        padding-inline: 1rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }

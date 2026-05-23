@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>História - Jujutsu Kaisen</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="historia.css">
@@ -42,7 +42,12 @@
         <div class="navbar">
             <div class="navbar-menu">
                 <img class="logo-img" src="../assets/images/Jujutsu-Kaisen-Logo-Header.png" alt="Logo Jujutsu Kaisen">
-                <ul class="nav-list">
+                <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="navList">
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                </button>
+                <ul class="nav-list" id="navList">
                     <li><a href="../index.html" class="nav-link">Inicio</a></li>
                     <li><a href="historia.html" class="nav-link">História</a></li>
                     <li><a href="../personagens/personagens.html" class="nav-link">Personagens</a></li>

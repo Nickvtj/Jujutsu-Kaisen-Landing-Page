@@ -25,11 +25,12 @@
     justify-content: center;
     align-items: stretch;
     gap: clamp(0.65rem, 1.5vw, 1.25rem);
-    padding: 0;
+    padding: 0.25rem 0 0.5rem;
     background: none;
     border: none;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
     scrollbar-width: thin;
     scrollbar-color: var(--color-gold-dark) transparent;
 }
@@ -49,7 +50,6 @@
     width: clamp(6.5rem, 12vw, 9.5rem);
     min-height: 2.75rem;
     height: clamp(4.25rem, 7vw, 5.25rem);
-    cursor: pointer;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-md);
     overflow: hidden;
@@ -59,6 +59,7 @@
     align-items: center;
     background: rgba(14, 12, 18, 0.88);
     flex-shrink: 0;
+    scroll-snap-align: center;
 }
 
 .wheel-item img {
@@ -97,18 +98,20 @@
 /* Body — info card left, character right */
 .historia-body {
     display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 26rem) minmax(0, 1fr);
     gap: clamp(1.25rem, 3vw, 2.5rem);
     flex: 1;
-    align-items: stretch;
+    align-items: start;
     min-height: 0;
 }
 
 .historia-content {
     display: flex;
     flex-direction: column;
-    gap: clamp(1rem, 1.5vw, 1.5rem);
-    padding: clamp(1.5rem, 2.5vw, 2.25rem);
+    gap: clamp(0.85rem, 1.2vw, 1.15rem);
+    width: 100%;
+    max-width: 26rem;
+    padding: clamp(1.25rem, 2vw, 1.75rem);
     background: linear-gradient(165deg, rgba(22, 18, 26, 0.94) 0%, rgba(10, 8, 14, 0.98) 100%);
     border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: var(--radius-lg);
@@ -116,7 +119,7 @@
         0 12px 40px rgba(0, 0, 0, 0.45),
         inset 0 1px 0 rgba(255, 255, 255, 0.04);
     min-width: 0;
-    min-height: clamp(20rem, 52vh, 32rem);
+    height: fit-content;
 }
 
 .historia-logo {
@@ -142,8 +145,7 @@
 }
 
 .historia-text-container {
-    flex: 1;
-    max-height: none;
+    max-height: clamp(9rem, 22vh, 13rem);
     overflow-y: auto;
     padding-right: 0.5rem;
     scrollbar-width: thin;
@@ -169,7 +171,7 @@
 }
 
 .historia-tag {
-    margin-top: auto;
+    margin-top: 0.25rem;
     align-self: flex-start;
     padding: 0.4rem 0.9rem;
     border: 1px solid rgba(201, 169, 97, 0.55);
@@ -219,9 +221,10 @@
     justify-content: center;
     align-items: center;
     min-width: 0;
-    min-height: clamp(20rem, 52vh, 32rem);
+    min-height: 0;
     margin: 0;
     overflow: visible;
+    align-self: center;
 }
 
 .historia-image-center::before {
@@ -254,11 +257,7 @@
 /* Desktop */
 @media (min-width: 1024px) {
     .historia-body {
-        grid-template-columns: minmax(24rem, 1.1fr) minmax(0, 1fr);
-    }
-
-    .historia-content {
-        padding: 2.25rem 2rem;
+        grid-template-columns: 26rem minmax(0, 1fr);
     }
 
     .historia-image-center img {
@@ -272,31 +271,50 @@
     }
 }
 
-/* Tablet and below */
-@media (max-width: 768px) {
-    .historia-section {
-        min-height: auto;
-        padding-bottom: var(--space-xl);
-    }
-
+/* Tablet — stack layout */
+@media (max-width: 900px) {
     .historia-body {
         grid-template-columns: 1fr;
+        gap: var(--space-md);
     }
 
     .historia-content {
-        min-height: auto;
+        max-width: 100%;
+    }
+
+    .historia-text-container {
+        max-height: none;
     }
 
     .historia-image-center {
-        min-height: clamp(16rem, 42vh, 24rem);
+        min-height: clamp(14rem, 38vh, 20rem);
     }
 
     .historia-image-center img {
-        max-height: clamp(16rem, 40vh, 22rem);
+        max-height: clamp(14rem, 36vh, 18rem);
     }
 
     .wheel-container {
         justify-content: flex-start;
+        padding-inline: 0.25rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .historia-section {
+        min-height: auto;
+        padding: var(--space-sm) var(--section-padding-x) var(--space-xl);
+        padding-bottom: max(var(--space-xl), env(safe-area-inset-bottom, 0px));
+        gap: var(--space-md);
+    }
+
+    .historia-title {
+        font-size: clamp(1.15rem, 5vw, 1.5rem);
+    }
+
+    .historia-text {
+        font-size: 0.9375rem;
     }
 }
 
@@ -306,7 +324,11 @@
     }
 
     .wheel-item {
-        width: 5.5rem;
-        height: 4rem;
+        width: 5rem;
+        height: 3.75rem;
+    }
+
+    .historia-image-center img {
+        max-height: clamp(12rem, 34vh, 16rem);
     }
 }

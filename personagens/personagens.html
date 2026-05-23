@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Personagens - Jujutsu Kaisen</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="personagens.css">
@@ -42,7 +42,12 @@
         <div class="navbar">
             <div class="navbar-menu">
                 <img class="logo-img" src="../assets/images/Jujutsu-Kaisen-Logo-Header.png" alt="Logo Jujutsu Kaisen">
-                <ul class="nav-list">
+                <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="navList">
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                </button>
+                <ul class="nav-list" id="navList">
                     <li><a href="../index.html" class="nav-link">Inicio</a></li>
                     <li><a href="../historia/historia.html" class="nav-link">História</a></li>
                     <li><a href="personagens.html" class="nav-link">Personagens</a></li>
@@ -60,6 +65,25 @@
             <div class="personagens-grid" id="personagensGrid"></div>
         </div>
     </main>
+
+    <div class="personagem-modal" id="personagemModal" hidden aria-hidden="true">
+        <div class="personagem-modal-backdrop" data-close-modal></div>
+        <button class="personagem-modal-nav personagem-modal-nav--prev" type="button" id="modalPrev" aria-label="Personagem anterior">&lsaquo;</button>
+        <div class="personagem-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalNome">
+            <button class="personagem-modal-close" type="button" aria-label="Fechar modal" data-close-modal>&times;</button>
+            <div class="personagem-modal-layout">
+                <figure class="personagem-modal-image-wrap">
+                    <img class="personagem-modal-image" id="modalImagem" src="" alt="">
+                </figure>
+                <div class="personagem-modal-body">
+                    <span class="personagem-modal-role" id="modalPapel"></span>
+                    <h2 class="personagem-modal-name" id="modalNome"></h2>
+                    <p class="personagem-modal-historia" id="modalHistoria"></p>
+                </div>
+            </div>
+        </div>
+        <button class="personagem-modal-nav personagem-modal-nav--next" type="button" id="modalNext" aria-label="Próximo personagem">&rsaquo;</button>
+    </div>
 
     <script src="../script.js"></script>
     <script src="personagens.js"></script>

@@ -10,6 +10,56 @@ const LOADER = {
 
 const PARTICLE_DELAY_MAX_S = 10;
 
+const CURSOR = {
+    assetPath: 'assets/images/Cursor.png',
+    sizePx: 44,
+    hotspotX: 6,
+    hotspotY: 4,
+};
+
+function getAssetUrl(pathFromRoot) {
+    const script = document.querySelector('script[src*="script.js"]');
+    if (!script) return pathFromRoot;
+    return new URL(pathFromRoot, script.src).href;
+}
+
+function initCustomCursor() {
+    if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    cursor.setAttribute('aria-hidden', 'true');
+
+    const img = document.createElement('img');
+    img.src = getAssetUrl(CURSOR.assetPath);
+    img.alt = '';
+    img.draggable = false;
+    cursor.appendChild(img);
+    document.body.appendChild(cursor);
+    document.documentElement.classList.add('custom-cursor-active');
+
+    let isVisible = false;
+
+    const moveCursor = (event) => {
+        const x = event.clientX - CURSOR.hotspotX;
+        const y = event.clientY - CURSOR.hotspotY;
+        cursor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+
+        if (!isVisible) {
+            cursor.classList.add('is-visible');
+            isVisible = true;
+        }
+    };
+
+    const hideCursor = () => {
+        cursor.classList.remove('is-visible');
+        isVisible = false;
+    };
+
+    document.addEventListener('mousemove', moveCursor);
+    document.addEventListener('mouseleave', hideCursor);
+}
+
 function initLoader() {
     const loader = document.querySelector('.Loader');
     if (!loader) return;
@@ -70,11 +120,48 @@ function initActiveNav() {
     });
 }
 
+function initMobileNav() {
+    const toggle = document.querySelector('.nav-toggle');
+    const navList = document.getElementById('navList');
+    if (!toggle || !navList) return;
+
+    const closeMenu = () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        navList.classList.remove('is-open');
+        document.body.classList.remove('nav-open');
+    };
+
+    toggle.addEventListener('click', () => {
+        const isOpen = navList.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+        toggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+        document.body.classList.toggle('nav-open', isOpen);
+    });
+
+    navList.querySelectorAll('.nav-link').forEach((link) => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navList.classList.contains('is-open')) {
+            closeMenu();
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            closeMenu();
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initLoader();
     initParticles();
     initVideoPersistence();
     initActiveNav();
+    initMobileNav();
+    initCustomCursor();
 });
 
 window.addEventListener('beforeunload', saveVideoTime);
