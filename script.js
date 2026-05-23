@@ -54,10 +54,27 @@ function saveVideoTime() {
     }
 }
 
+function initActiveNav() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+    document.querySelectorAll('.nav-link').forEach((link) => {
+        const href = link.getAttribute('href') || '';
+        const linkPage = href.split('/').pop();
+        const isHome = (currentPage === 'index.html' || currentPage === '') && linkPage === 'index.html';
+        const isMatch = linkPage === currentPage;
+
+        if (isHome || isMatch) {
+            link.classList.add('active');
+            link.setAttribute('aria-current', 'page');
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initLoader();
     initParticles();
     initVideoPersistence();
+    initActiveNav();
 });
 
 window.addEventListener('beforeunload', saveVideoTime);

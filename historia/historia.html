@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="historia.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Video Background -->
@@ -53,24 +53,8 @@
 
     <main>
         <div class="historia-section">
-            <!-- Lado Esquerdo - Descrição -->
-            <div class="historia-content">
-                <img class="historia-logo" id="historiaLogo" src="../assets/images/Jujutsu-Kaisen-0-Logo.png" alt="Logo do Arco">
-                <h2 class="historia-title" id="historiaTitle"></h2>
-                <div class="historia-text-container">
-                    <p class="historia-text" id="historiaText">
-                        Selecione um arco para ler mais...
-                    </p>
-                </div>
-            </div>
-
-            <!-- Meio - Imagem Principal -->
-            <div class="historia-image-center">
-                <img id="historiaImageMain" src="../assets/images/Yuta-Historia.png" alt="Arco da História">
-            </div>
-
-            <!-- Lado Direito - Roda de Imagens -->
-            <div class="historia-wheel">
+            <!-- Topo — seletor de arcos em linha horizontal -->
+            <nav class="historia-wheel" aria-label="Selecionar arco">
                 <div class="wheel-container">
                     <div class="wheel-item active" data-index="0" title="Arco 1">
                         <img src="../assets/images/Jujutsu-Kaisen-0-Logo.png" alt="Arco 1">
@@ -85,6 +69,24 @@
                         <img src="../assets/images/Jujutsu-Kaisen-Abate-Logo.png" alt="Arco 4">
                     </div>
                 </div>
+            </nav>
+
+            <!-- Conteúdo — card à esquerda, personagem à direita -->
+            <div class="historia-body">
+                <article class="historia-content">
+                    <img class="historia-logo" id="historiaLogo" src="../assets/images/Jujutsu-Kaisen-0-Logo.png" alt="Logo do Arco">
+                    <h2 class="historia-title" id="historiaTitle"></h2>
+                    <div class="historia-text-container">
+                        <p class="historia-text" id="historiaText">
+                            Selecione um arco para ler mais...
+                        </p>
+                    </div>
+                    <span class="historia-tag" id="historiaTag"></span>
+                </article>
+
+                <figure class="historia-image-center">
+                    <img id="historiaImageMain" src="../assets/images/Yuta-Historia.png" alt="Arco da História">
+                </figure>
             </div>
         </div>
     </main>
