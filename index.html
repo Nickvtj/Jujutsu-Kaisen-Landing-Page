@@ -3,78 +3,294 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Jujutsu Kaisen - Landing Page</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Jujutsu Kaisen | Feitiçaria e maldições</title>
+    <meta name="description" content="Página de fã sobre Jujutsu Kaisen: o universo, os arcos do anime e os principais personagens, com arte colorida do mangá.">
+    <meta name="theme-color" content="#0a090d">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Jujutsu Kaisen | Feitiçaria e maldições">
+    <meta property="og:description" content="O universo, os arcos e os personagens de Jujutsu Kaisen.">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600;700&family=Yuji+Syuku&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preload" as="image" href="assets/img/itadori-hero.webp" fetchpriority="high">
+    <script>document.documentElement.classList.add('js');try{if(sessionStorage.getItem('jjk:visited'))document.documentElement.classList.add('is-returning')}catch(e){}</script>
+    <noscript><style>.loader{display:none}</style></noscript>
 </head>
 <body>
-    <!-- Video Background -->
-    <video class="video-background" autoplay muted loop>
-        <source src="assets/Video/VideoBackground.mp4" type="video/mp4">
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <video class="video-background" autoplay muted loop playsinline preload="auto" poster="assets/media/poster.webp" aria-hidden="true">
+        <source src="assets/media/background.mp4" type="video/mp4">
     </video>
 
-    <!-- Partículas de Energia Amaldiçoada -->
-    <div class="particles-container">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
+    <div class="loader" aria-hidden="true">
+        <div class="loader-container">
+            <img class="loader-icon" src="assets/img/sukuna.svg" alt="">
+        </div>
     </div>
 
-    <!-- Loading -->
-     <div class="Loader">
-         <div class="loader-container">
-             <img class="sukuna-icon" src="assets/icons/sukuna.svg" alt="Sukuna Loading">
-         </div>
-     </div>
-
-    <!-- Header -->
-    <header>
-    <div class="navbar">
-        <div class="navbar-menu">
-            <img class="logo-img" src="assets/images/Jujutsu-Kaisen-Logo-Header.png" alt="Logo Jujutsu Kaisen">
+    <header class="site-header">
+        <nav class="navbar container" aria-label="Principal">
+            <a class="brand" href="#inicio" aria-label="Jujutsu Kaisen, voltar ao início">
+                <img src="assets/img/logos/emblema.webp" alt="" width="42" height="42">
+                <span class="brand-text">
+                    <span class="brand-kanji" lang="ja">呪術廻戦</span>
+                    <span class="brand-name">Jujutsu Kaisen</span>
+                </span>
+            </a>
             <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="navList">
                 <span class="nav-toggle-bar" aria-hidden="true"></span>
                 <span class="nav-toggle-bar" aria-hidden="true"></span>
                 <span class="nav-toggle-bar" aria-hidden="true"></span>
             </button>
             <ul class="nav-list" id="navList">
-                <li><a href="index.html" class="nav-link">Inicio</a></li>
-                <li><a href="historia/historia.html" class="nav-link">História</a></li>
-                <li><a href="personagens/personagens.html" class="nav-link">Personagens</a></li>
+                <li><a href="#inicio" class="nav-link">Início</a></li>
+                <li><a href="#universo" class="nav-link">Universo</a></li>
+                <li><a href="#arcos" class="nav-link">Arcos</a></li>
+                <li><a href="#personagens" class="nav-link">Personagens</a></li>
             </ul>
-        </div>
-    </div>
+            <a class="btn btn--primary btn--sm nav-cta" href="https://www.crunchyroll.com/series/GRMG8JQNR/jujutsu-kaisen" target="_blank" rel="noopener noreferrer">Assistir</a>
+        </nav>
     </header>
 
-
-    <main>
-        <div class="hero-section">
-            <div class="hero-content">
-                <img class="Logo-jujutsu" src="assets/images/Jujutsu-Kaisen-Logo.png" alt="Jujutsu Kaisen">
-                <div class="hero-card">
-                    <p class="hero-description">
-                        Como grande admirador do universo criado por Gege Akutami, desenvolvi este projeto para unir duas paixões: o desenvolvimento front-end e o anime Jujutsu Kaisen. Utilizando HTML, CSS e JavaScript, construí esta interface focada na experiência do usuário, celebrando momentos icônicos como o Incidente em Shibuya. Design e código por <span class="hero-author">Nicolas Vieira da Costa</span>.
+    <main id="conteudo">
+        <!-- Início -->
+        <section class="hero" id="inicio" aria-labelledby="heroTitle">
+            <span class="hero-kanji" lang="ja" aria-hidden="true">呪術廻戦</span>
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <p class="eyebrow">Feitiçaria e maldições</p>
+                    <h1 id="heroTitle">
+                        <img class="hero-logo" src="assets/img/logos/jjk.webp" alt="Jujutsu Kaisen" width="900" height="203">
+                    </h1>
+                    <p class="hero-tagline">
+                        Toda emoção negativa gera energia amaldiçoada. Quando ela se acumula, nascem as maldições, e só os feiticeiros jujutsu conseguem exorcizar essas criaturas.
                     </p>
+                    <div class="hero-actions">
+                        <a class="btn btn--primary" href="https://www.crunchyroll.com/series/GRMG8JQNR/jujutsu-kaisen" target="_blank" rel="noopener noreferrer">
+                            Onde assistir
+                            <span class="btn-arrow" aria-hidden="true">→</span>
+                        </a>
+                        <a class="btn btn--ghost" href="#personagens">Conhecer personagens</a>
+                    </div>
                 </div>
-                <a class="btn-watch" href="https://www.crunchyroll.com/series/GRMG8JQNR/jujutsu-kaisen" target="_blank" rel="noopener noreferrer">
-                    Onde assistir
-                    <span class="btn-arrow" aria-hidden="true">→</span>
-                </a>
+
+                <div class="hero-art">
+                    <span class="hero-sun" aria-hidden="true"></span>
+                    <img src="assets/img/itadori-hero.webp" alt="Yuji Itadori em posição de luta, arte colorida do mangá" width="994" height="1500" fetchpriority="high">
+                    <span class="hero-art-caption" lang="ja" aria-hidden="true">虎杖悠仁</span>
+                </div>
             </div>
-            <div class="hero-character">
-                <img src="assets/images/ItadoriHome.png" alt="Yuji Itadori">
+        </section>
+
+        <div class="ticker-wrap" aria-hidden="true">
+        <div class="ticker">
+            <div class="ticker-track">
+                <span><b lang="ja">呪術廻戦</b> Jujutsu Kaisen <b lang="ja">領域展開</b> Expansão de domínio <b lang="ja">黒閃</b> Black Flash <b lang="ja">呪霊</b> Maldições</span>
+                <span><b lang="ja">呪術廻戦</b> Jujutsu Kaisen <b lang="ja">領域展開</b> Expansão de domínio <b lang="ja">黒閃</b> Black Flash <b lang="ja">呪霊</b> Maldições</span>
             </div>
         </div>
+        </div>
+
+        <!-- Universo -->
+        <section class="section" id="universo" aria-labelledby="universoTitle">
+            <div class="container universe">
+                <div class="universe-text reveal">
+                    <header class="section-head">
+                        <span class="section-kanji" lang="ja" aria-hidden="true">世界</span>
+                        <p class="eyebrow">O universo</p>
+                        <h2 id="universoTitle" class="section-title">Um mundo onde o <em>medo</em> ganha forma</h2>
+                    </header>
+                    <p>
+                        Criado por <strong>Gege Akutami</strong>, Jujutsu Kaisen acompanha Yuji Itadori, um estudante que vira receptáculo de Ryomen Sukuna, o Rei das Maldições.
+                    </p>
+                    <p>
+                        Para escapar da execução, ele entra na Escola Técnica de Jujutsu de Tóquio e passa a caçar os dedos amaldiçoados de Sukuna, enquanto descobre o quanto o mundo dos feiticeiros pode ser cruel.
+                    </p>
+                </div>
+
+                <dl class="stats">
+                    <div class="stat reveal" style="--reveal-delay: 0ms">
+                        <dt>Estreia do mangá</dt>
+                        <dd class="stat-value">2018</dd>
+                        <dd class="stat-note">Weekly Shōnen Jump</dd>
+                    </div>
+                    <div class="stat reveal" style="--reveal-delay: 90ms">
+                        <dt>Capítulos</dt>
+                        <dd class="stat-value">271</dd>
+                        <dd class="stat-note">Mangá concluído em 2024</dd>
+                    </div>
+                    <div class="stat reveal" style="--reveal-delay: 180ms">
+                        <dt>Volumes</dt>
+                        <dd class="stat-value">30</dd>
+                        <dd class="stat-note">Edições encadernadas</dd>
+                    </div>
+                    <div class="stat reveal" style="--reveal-delay: 270ms">
+                        <dt>Estreia do anime</dt>
+                        <dd class="stat-value">2020</dd>
+                        <dd class="stat-note">Animação do estúdio MAPPA</dd>
+                    </div>
+                </dl>
+            </div>
+        </section>
+
+        <!-- Arcos -->
+        <section class="section" id="arcos" aria-labelledby="arcosTitle">
+            <div class="container">
+                <header class="section-head reveal">
+                    <span class="section-kanji" lang="ja" aria-hidden="true">物語</span>
+                    <p class="eyebrow">A história</p>
+                    <h2 id="arcosTitle" class="section-title">Arcos do <em>anime</em></h2>
+                    <p class="section-lead">Do filme que apresentou Yuta Okkotsu até o Jogo do Abate. Cada arco aparece com a capa de um volume do mangá que ele adapta.</p>
+                </header>
+
+                <div class="arcs reveal">
+                    <div class="arc-tabs" role="tablist" aria-label="Arcos" aria-orientation="vertical" id="arcTabs"></div>
+
+                    <div class="arc-panel" role="tabpanel" id="arcPanel" tabindex="-1">
+                        <figure class="arc-cover swap">
+                            <img id="arcCover" src="assets/img/capas/volume-0.webp" alt="" width="700" height="1100" loading="lazy">
+                            <figcaption id="arcCoverCaption"></figcaption>
+                        </figure>
+                        <div class="arc-info swap">
+                            <p class="arc-meta" id="arcMeta"></p>
+                            <h3 class="arc-title" id="arcTitle"></h3>
+                            <p class="arc-text" id="arcText"></p>
+                            <div class="arc-nav">
+                                <button class="icon-btn" type="button" id="arcPrev" aria-label="Arco anterior">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+                                </button>
+                                <button class="icon-btn" type="button" id="arcNext" aria-label="Próximo arco">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+                                </button>
+                                <span class="arc-counter" id="arcCounter" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Personagens -->
+        <section class="section" id="personagens" aria-labelledby="personagensTitle">
+            <div class="container">
+                <header class="section-head reveal">
+                    <span class="section-kanji" lang="ja" aria-hidden="true">人物</span>
+                    <p class="eyebrow">Personagens</p>
+                    <h2 id="personagensTitle" class="section-title">Feiticeiros e <em>maldições</em></h2>
+                    <p class="section-lead">Estudantes, professores e as ameaças que movem a história. Clique em um personagem para ver a ficha completa.</p>
+                </header>
+
+                <div class="char-toolbar">
+                    <div class="search-field">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+                        <label class="sr-only" for="charSearch">Buscar personagem</label>
+                        <input type="search" id="charSearch" placeholder="Buscar por nome ou técnica" autocomplete="off" spellcheck="false">
+                    </div>
+                    <div class="filter-group" role="group" aria-label="Filtrar por categoria" id="charFilters"></div>
+                    <p class="char-count" id="charCount" role="status" aria-live="polite"></p>
+                </div>
+
+                <ul class="char-grid" id="personagensGrid"></ul>
+
+                <div class="char-empty" id="charEmpty" hidden>
+                    <p>Nenhum personagem encontrado.</p>
+                    <button class="btn btn--ghost" type="button" id="charReset">Limpar filtros</button>
+                </div>
+            </div>
+        </section>
     </main>
-      <script src="script.js"></script>
+
+    <dialog class="char-modal" id="personagemModal" aria-labelledby="modalNome">
+        <div class="char-modal-inner">
+            <button class="icon-btn char-modal-close" type="button" id="modalClose" aria-label="Fechar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+
+            <figure class="char-modal-media">
+                <img id="modalImagem" src="" alt="">
+            </figure>
+
+            <div class="char-modal-body">
+                <span class="char-modal-kanji" id="modalKanji" lang="ja" aria-hidden="true"></span>
+                <span class="char-modal-role" id="modalPapel"></span>
+                <h2 class="char-modal-name" id="modalNome"></h2>
+                <dl class="char-facts">
+                    <div><dt>Grau</dt><dd id="modalGrau"></dd></div>
+                    <div><dt>Técnica</dt><dd id="modalTecnica"></dd></div>
+                    <div><dt>Afiliação</dt><dd id="modalAfiliacao"></dd></div>
+                </dl>
+                <p class="char-modal-text" id="modalHistoria"></p>
+
+                <div class="char-modal-nav">
+                    <button class="icon-btn" type="button" id="modalPrev" aria-label="Personagem anterior">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+                    </button>
+                    <span class="char-modal-position" id="modalPosicao" aria-live="polite"></span>
+                    <button class="icon-btn" type="button" id="modalNext" aria-label="Próximo personagem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <footer class="site-footer">
+        <div class="container">
+            <figure class="footer-quote">
+                <span class="footer-quote-kanji" lang="ja" aria-hidden="true">天上天下唯我独尊</span>
+                <blockquote>
+                    <p>Entre o céu e a terra, somente eu sou o honrado.</p>
+                    <cite>Satoru Gojo</cite>
+                </blockquote>
+            </figure>
+
+            <div class="footer-main">
+                <div class="footer-about">
+                    <span class="hanko" lang="ja" aria-hidden="true">呪</span>
+                    <div>
+                        <h2>Feito por um fã</h2>
+                        <p>
+                            Como grande admirador do universo criado por Gege Akutami, desenvolvi este projeto para unir duas paixões: o desenvolvimento front end e Jujutsu Kaisen. Construído com HTML, CSS e JavaScript, sem frameworks.
+                        </p>
+                        <span class="footer-signature">Nicolas Vieira da Costa</span>
+                    </div>
+                </div>
+
+                <nav class="footer-col" aria-label="Seções">
+                    <h3>Explorar</h3>
+                    <ul>
+                        <li><a href="#inicio">Início</a></li>
+                        <li><a href="#universo">Universo</a></li>
+                        <li><a href="#arcos">Arcos</a></li>
+                        <li><a href="#personagens">Personagens</a></li>
+                    </ul>
+                </nav>
+
+                <div class="footer-col">
+                    <h3>Links</h3>
+                    <ul>
+                        <li><a href="https://www.crunchyroll.com/series/GRMG8JQNR/jujutsu-kaisen" target="_blank" rel="noopener noreferrer">Assistir na Crunchyroll <span aria-hidden="true">↗</span></a></li>
+                        <li><a href="https://github.com/Nickvtj/Jujutsu-Kaisen-Landing-Page" target="_blank" rel="noopener noreferrer">Código no GitHub <span aria-hidden="true">↗</span></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Jujutsu Kaisen © Gege Akutami, Shueisha. Projeto de fã sem fins lucrativos. © <span data-current-year>2026</span></p>
+                <a class="back-to-top" href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a>
+            </div>
+        </div>
+
+        <p class="footer-giant" lang="ja" aria-hidden="true">呪術廻戦</p>
+    </footer>
+
+    <script src="data/personagens.js"></script>
+    <script src="data/arcos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/arcos.js"></script>
+    <script src="js/personagens.js"></script>
 </body>
 </html>

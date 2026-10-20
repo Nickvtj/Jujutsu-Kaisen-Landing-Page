@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Página não encontrada | Jujutsu Kaisen</title>
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#0a090d">
+    <!-- Caminhos absolutos: o Netlify serve esta página em qualquer URL inexistente -->
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@500;600;700&family=Yuji+Syuku&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .not-found {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            min-height: 100dvh;
+            padding: 2rem var(--gutter);
+            text-align: center;
+        }
+
+        .not-found img {
+            width: 7rem;
+            filter: drop-shadow(0 0 24px var(--red-glow));
+        }
+
+        .not-found-code {
+            font-family: var(--font-display);
+            font-size: clamp(4rem, 15vw, 8rem);
+            font-weight: 700;
+            line-height: 1;
+            color: var(--red);
+            text-shadow: 0 0 40px var(--red-glow);
+        }
+    </style>
+</head>
+<body>
+    <main class="not-found">
+        <img src="/assets/img/sukuna.svg" alt="" width="112" height="104">
+        <p class="not-found-code">404</p>
+        <h1 class="section-title">Expansão de domínio falhou</h1>
+        <p class="section-lead">Esta página foi exorcizada ou nunca existiu. Volte para um lugar seguro.</p>
+        <a class="btn btn--primary" href="/">Voltar ao início</a>
+    </main>
+</body>
+</html>
