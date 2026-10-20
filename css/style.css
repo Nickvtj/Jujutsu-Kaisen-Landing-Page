@@ -1313,7 +1313,8 @@ body::before {
 
 /* 8 kanji em 2 colunas de 4, no formato de um selo */
 .footer-quote-kanji {
-    block-size: 4.2em;
+    /* No texto vertical, inline-size é a altura da coluna: cabem 4 kanji por coluna */
+    inline-size: 4.4em;
     color: var(--red);
     font-size: clamp(2rem, 5vw, 3.25rem);
     line-height: 1.1;
