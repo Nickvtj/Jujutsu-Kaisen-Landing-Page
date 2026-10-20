@@ -279,11 +279,3 @@ O conteúdo fica em `data/`, separado do código. Assim, dá para mudar um texto
 > Este é um **projeto de fã, sem fins lucrativos** e sem ligação oficial com a obra ou seus detentores de direitos.
 
 <br>
-
----
-
-<p align="center">
-  Feito com 🩸 por <a href="https://github.com/Nickvtj"><strong>Nicolas Vieira da Costa</strong></a>
-  <br>
-  <sub>Se o projeto te ajudou ou te inspirou, deixe uma ⭐ no repositório!</sub>
-</p>
